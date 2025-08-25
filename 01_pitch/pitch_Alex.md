@@ -4,7 +4,7 @@
 A first‑person, horror‑tinged **night delivery simulator** where **time pressure** and **misidentification risk** drive tension. After each run, corporate “safety & wellness” surveys insist **everything is normal** while workload and deadlines tighten.
 
 **Narrative (2–3 sentences)**
-A contract driver chases night‑shift bonuses through dark suburbs and unsafe city blocks. Each return to the depot yields a reassuring auto‑reply and a harsher route. As fatigue builds, porch lights, barking dogs, motion sensors, and watchful windows turn routine drops into fear‑filled decisions.
+A contract driver chases night‑shift bonuses through dark suburbs and unsafe city blocks. Each return to the depot yields a "reassuring" auto‑reply and a harsher route. As fatigue builds, porch lights, barking dogs, motion sensors, and watchful windows turn routine drops into fear‑filled decisions.
 
 **Core Loop (one line)**
 Plan → Drive → Park → Low‑profile approach → Place & photo → Retreat → Next stop → Depot survey → Harder route.
