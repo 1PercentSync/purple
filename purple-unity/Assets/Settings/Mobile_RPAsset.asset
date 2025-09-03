@@ -15,11 +15,11 @@ MonoBehaviour:
   k_AssetVersion: 12
   k_AssetPreviousVersion: 12
   m_RendererType: 1
-  m_RendererData: {fileID: 11400000, guid: 6f81694c2d5e9d84e8e2449704856a1d, type: 2}
+  m_RendererData: {fileID: 0}
   m_RendererDataList:
-  - {fileID: 11400000, guid: 6f81694c2d5e9d84e8e2449704856a1d, type: 2}
+  - {fileID: 11400000, guid: 65bc7dbf4170f435aa868c779acfb082, type: 2}
   m_DefaultRendererIndex: 0
-  m_RequireDepthTexture: 1
+  m_RequireDepthTexture: 0
   m_RequireOpaqueTexture: 0
   m_OpaqueDownsampling: 0
   m_SupportsTerrainHoles: 1
