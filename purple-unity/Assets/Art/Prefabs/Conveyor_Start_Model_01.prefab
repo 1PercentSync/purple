@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conveyor_Start_Model_01
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 59a44861f5a468b488663e618f27f900, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
