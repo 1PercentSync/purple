@@ -21,11 +21,13 @@ public class ClockInStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        playerInRange = true;
+        if (other.CompareTag("Player"))
+            playerInRange = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        playerInRange = false;
+        if (other.CompareTag("Player"))
+            playerInRange = false;
     }
 }

@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
-using TMPro;
 using System.Collections;
 using System;
 
 public class WorkClock : MonoBehaviour
 {
     [Header("World Clock")]
-    public TMP_Text ClockTime;       // World-space 3D clock
-    public GameObject clockCanvas;   // World-space canvas
+    public TMPro.TMP_Text ClockTime;       // World-space 3D clock
+    public GameObject clockCanvas;         // World-space canvas
 
     [Header("Quota / HUD")]
     public QuotaManager quotaManager;
@@ -36,7 +35,6 @@ public class WorkClock : MonoBehaviour
 
             // Start Quota/HUD
             quotaManager.StartQuota();
-            quotaManager.UpdateHUD();
 
             Debug.Log("Workday started at 9 AM!");
         }
@@ -49,12 +47,11 @@ public class WorkClock : MonoBehaviour
             // Increment in-game time
             quotaManager.inGameTime = quotaManager.inGameTime.AddSeconds(1);
 
-            // Update world clock
-            if (ClockTime != null)
-                ClockTime.text = quotaManager.inGameTime.ToString("HH:mm:ss");
-
             // Update HUD overlay
             quotaManager.UpdateHUD();
+
+            if (ClockTime != null)
+                ClockTime.text = quotaManager.inGameTime.ToString("HH:mm:ss");
 
             yield return new WaitForSeconds(1f);
         }
