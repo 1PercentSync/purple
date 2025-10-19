@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class BombMinigame : MonoBehaviour
 {
     [Header("Simon Buttons")]
-    public GameObject[] simonButtons;        // Assign button GameObjects here
+    public GameObject[] simonButtons;
     public float highlightDuration = 0.5f;
     public float timeBetweenHighlights = 0.3f;
 
@@ -13,19 +13,18 @@ public class BombMinigame : MonoBehaviour
     public int sequenceLength = 5;
 
     [Header("Fail Settings")]
-    public int maxFails = 2;                 // Kick out after 2 wrong sequences
+    public int maxFails = 2; 
 
     private List<int> sequence;
     private int playerStep = 0;
     private int failCount = 0;
-    private bool inputEnabled = true;        // Disable input during sequence playback
+    private bool inputEnabled = true; 
 
-    public EnterBomb enterBomb;              // Reference to EnterBomb
-    public float startDelay = 1f;            // Delay before sequence starts
+    public EnterBomb enterBomb; 
+    public float startDelay = 1f; 
 
     void Awake()
     {
-        // Make sure each SimonButton knows its controller and correct index
         for (int i = 0; i < simonButtons.Length; i++)
         {
             SimonButton sb = simonButtons[i].GetComponent<SimonButton>();
@@ -73,6 +72,11 @@ public class BombMinigame : MonoBehaviour
             if (button != null)
             {
                 Renderer rend = button.GetComponent<Renderer>();
+                SimonButton sb = button.GetComponent<SimonButton>();
+
+                if (sb != null)
+                    sb.PlaySound();
+
                 if (rend != null)
                     yield return StartCoroutine(FlashButton(rend, Color.red, highlightDuration));
             }
@@ -108,7 +112,12 @@ public class BombMinigame : MonoBehaviour
             Debug.Log($"Correct button {buttonIndex} pressed!");
             playerStep++;
 
+            SimonButton sb = simonButtons[buttonIndex].GetComponent<SimonButton>();
             Renderer rend = simonButtons[buttonIndex].GetComponent<Renderer>();
+
+            if (sb != null)
+                sb.PlaySound();
+
             if (rend != null)
                 StartCoroutine(FlashButton(rend, Color.green, 0.3f));
 
@@ -137,10 +146,7 @@ public class BombMinigame : MonoBehaviour
                 return;
             }
 
-            // Optional: flash all buttons red briefly
             StartCoroutine(FlashAllButtons(Color.red, 0.5f));
-
-            // Replay sequence after delay
             StartCoroutine(PlaySequenceWithDelay(1f));
         }
     }
