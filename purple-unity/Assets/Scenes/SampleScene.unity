@@ -4090,10 +4090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &97412570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4106,8 +4102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 97412569}
 --- !u!120 &97412571
 LineRenderer:
   serializedVersion: 2
@@ -8412,10 +8406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &205033290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8428,8 +8418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 205033289}
 --- !u!120 &205033291
 LineRenderer:
   serializedVersion: 2
@@ -12356,10 +12344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &300019324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12372,8 +12356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 300019323}
 --- !u!120 &300019325
 LineRenderer:
   serializedVersion: 2
@@ -19013,7 +18995,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3503167532966410781, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_Name
-      value: HumanDummy_M White
+      value: Player Character
       objectReference: {fileID: 0}
     - target: {fileID: 3503167532966410781, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_TagString
@@ -25657,6 +25639,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630104333}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &639450863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639450864}
+  m_Layer: 0
+  m_Name: Audio Folder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639450864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639450863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1935959677}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639546294
 GameObject:
   m_ObjectHideFlags: 0
@@ -43329,19 +43343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a106eb3d6a9fd7488fb1b143d1e9ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireMinigame
-  connectors:
-  - {fileID: 2013304121}
-  - {fileID: 300019323}
-  - {fileID: 1565601299}
-  - {fileID: 97412569}
-  - {fileID: 1304725907}
-  - {fileID: 1409490921}
-  - {fileID: 1600189683}
-  - {fileID: 205033289}
-  maxFails: 3
-  selectedA: {fileID: 0}
-  failCount: 0
-  enterBomb: {fileID: 1103823529}
 --- !u!1 &1105815814
 GameObject:
   m_ObjectHideFlags: 0
@@ -50847,10 +50848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &1304725908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50863,8 +50860,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 1304725907}
 --- !u!120 &1304725909
 LineRenderer:
   serializedVersion: 2
@@ -54313,10 +54308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &1409490922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54329,8 +54320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 1409490921}
 --- !u!120 &1409490923
 LineRenderer:
   serializedVersion: 2
@@ -61212,10 +61201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &1565601300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61228,8 +61213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 1565601299}
 --- !u!120 &1565601301
 LineRenderer:
   serializedVersion: 2
@@ -62292,10 +62275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &1600189684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62308,8 +62287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 1600189683}
 --- !u!120 &1600189685
 LineRenderer:
   serializedVersion: 2
@@ -75212,6 +75189,135 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934571348}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1935959676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1935959677}
+  - component: {fileID: 1935959678}
+  m_Layer: 0
+  m_Name: Factory Ambiance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1935959677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935959676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.5, y: 2.38, z: 14.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 639450864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1935959678
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935959676}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 9f34434d3a509e54d93d3183caf7775d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.7
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1935967564
 GameObject:
   m_ObjectHideFlags: 0
@@ -77413,10 +77519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61562a3de27632449a64e16a27184b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wire
-  color: 0
-  isA: 0
-  isConnected: 0
-  lineRenderer: {fileID: 0}
 --- !u!114 &2013304122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77429,8 +77531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f8737222ee374eb665541935a9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WireClick
-  controller: {fileID: 1103823534}
-  wire: {fileID: 2013304121}
 --- !u!120 &2013304123
 LineRenderer:
   serializedVersion: 2
@@ -82395,3 +82495,4 @@ SceneRoots:
   - {fileID: 296402624}
   - {fileID: 1420556398}
   - {fileID: 1547939847}
+  - {fileID: 639450864}
