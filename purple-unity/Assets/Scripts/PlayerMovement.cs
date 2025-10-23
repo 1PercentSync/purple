@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private float verticalVelocity;
     private bool isGrounded;
 
+    //Dialogue
+    public static bool dialogue = false;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -20,8 +23,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
+        if (!dialogue)
+        {
+            HandleMovement();
+        }
+
     }
+
+
 
     private void HandleMovement()
     {
