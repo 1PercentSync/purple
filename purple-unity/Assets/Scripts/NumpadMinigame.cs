@@ -19,6 +19,7 @@ public class NumpadMinigame : MonoBehaviour
     private int playerStep = 0;
     private int failCount = 0;
     private bool inputEnabled = false;
+    private bool isActive = false;
 
     public EnterBomb enterBomb;
 
@@ -36,10 +37,13 @@ public class NumpadMinigame : MonoBehaviour
             Collider col = numpadButtons[i].GetComponent<Collider>();
             if (col != null) col.enabled = false; // Disable buttons initially
         }
+
+        ClearScreen();
     }
 
     public void StartMinigame()
     {
+        isActive = true;
         GenerateCode();
         playerStep = 0;
         failCount = 0;
@@ -77,7 +81,7 @@ public class NumpadMinigame : MonoBehaviour
 
     public void PressNumber(int number)
     {
-        if (!inputEnabled) return;
+        if (!inputEnabled || !isActive) return; 
 
         if (playerStep >= codeSequence.Count) return;
 
@@ -89,6 +93,7 @@ public class NumpadMinigame : MonoBehaviour
             if (playerStep >= codeSequence.Count)
             {
                 inputEnabled = false;
+                isActive = false; 
                 DisableAllButtons();
                 enterBomb?.OnNumpadComplete();
             }
@@ -102,6 +107,7 @@ public class NumpadMinigame : MonoBehaviour
             if (failCount >= maxFails)
             {
                 inputEnabled = false;
+                isActive = false; 
                 DisableAllButtons();
                 enterBomb?.ExitBombCamera();
             }
@@ -158,10 +164,21 @@ public class NumpadMinigame : MonoBehaviour
         }
     }
 
+    void ClearScreen()
+    {
+        if (screenText != null)
+        {
+            screenText.text = "";
+            screenText.color = Color.white;
+        }
+    }
+
     public void ResetMinigame()
     {
+        isActive = false; 
         playerStep = 0;
         failCount = 0;
-        StartMinigame();
+        DisableAllButtons(); 
+        ClearScreen(); 
     }
 }

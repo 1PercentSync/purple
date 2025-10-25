@@ -5,17 +5,19 @@ using System;
 public class QuotaManager : MonoBehaviour
 {
     [Header("UI References")]
-    public TMP_Text hudText;       
+    public TMP_Text hudText;
 
     [Header("Quota Settings")]
     public int dailyQuota = 5;
 
     [HideInInspector]
-    public int bombsCreated = 0;     
+    public int bombsCreated = 0;
     private bool quotaActive = false;
-    public int currentDay = 1;
+    private bool quotaCompleted = false;
 
-    public DateTime inGameTime;       
+    public int currentDay = 1;
+    public DateTime inGameTime;
+
     public event Action OnQuotaComplete;
 
     void Start()
@@ -24,21 +26,21 @@ public class QuotaManager : MonoBehaviour
             hudText.gameObject.SetActive(true);
 
         bombsCreated = 0;
+        quotaCompleted = false;
     }
 
     public void StartQuota()
     {
         bombsCreated = 0;
         quotaActive = true;
-
+        quotaCompleted = false;
         UpdateHUD();
-
         Debug.Log($"Day {currentDay} quota started! Daily quota: {dailyQuota}");
     }
 
     public void CompleteTask()
     {
-        if (!quotaActive) return;
+        if (!quotaActive || quotaCompleted) return;
 
         bombsCreated = Mathf.Min(bombsCreated + 1, dailyQuota);
         UpdateHUD();
@@ -46,9 +48,9 @@ public class QuotaManager : MonoBehaviour
         if (bombsCreated >= dailyQuota)
         {
             Debug.Log($"Day {currentDay} all tasks completed!");
+            quotaCompleted = true;
             EndQuota();
             ShowTherapyReminder();
-
             OnQuotaComplete?.Invoke();
         }
     }
@@ -56,10 +58,17 @@ public class QuotaManager : MonoBehaviour
     public void EndQuota()
     {
         quotaActive = false;
-        bombsCreated = 0;
-
         Debug.Log($"Day {currentDay} quota ended!");
+    }
+
+    public void StartNextDay()
+    {
         currentDay++;
+        bombsCreated = 0;
+        quotaCompleted = false;
+        quotaActive = false;
+        UpdateHUD();
+        Debug.Log($"Starting Day {currentDay}");
     }
 
     public void UpdateHUD()
@@ -67,10 +76,20 @@ public class QuotaManager : MonoBehaviour
         if (hudText != null)
         {
             string timeStr = inGameTime != DateTime.MinValue ? inGameTime.ToString("HH:mm:ss") : "00:00:00";
+            string quotaStr;
 
-            string quotaStr = quotaActive
-                ? $"Daily Quota {bombsCreated}/{dailyQuota}"
-                : "Quota inactive";
+            if (quotaCompleted)
+            {
+                quotaStr = "Quota Complete - Visit Therapy";
+            }
+            else if (quotaActive)
+            {
+                quotaStr = $"Daily Quota {bombsCreated}/{dailyQuota}";
+            }
+            else
+            {
+                quotaStr = "Quota inactive";
+            }
 
             hudText.text = $"Day {currentDay} | {timeStr}\n{quotaStr}";
         }
@@ -79,6 +98,16 @@ public class QuotaManager : MonoBehaviour
     public bool IsQuotaActive()
     {
         return quotaActive;
+    }
+
+    public bool IsQuotaCompleted()
+    {
+        return quotaCompleted;
+    }
+
+    public bool CanAccessBomb()
+    {
+        return quotaActive && !quotaCompleted;
     }
 
     public int GetRemainingQuota()
@@ -91,7 +120,7 @@ public class QuotaManager : MonoBehaviour
         Debug.Log("Daily quota completed! Time to head to therapy.");
         if (hudText != null)
         {
-            hudText.text += "\n\nDaily quota complete! Head to therapy.";
+            UpdateHUD();
         }
     }
 }

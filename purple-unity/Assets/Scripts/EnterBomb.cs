@@ -46,6 +46,12 @@ public class EnterBomb : MonoBehaviour
                 return;
             }
 
+            if (quotaManager.IsQuotaCompleted())
+            {
+                Debug.Log("Daily quota completed! Please visit therapy before working on more bombs.");
+                return;
+            }
+
             if (quotaManager.GetRemainingQuota() <= 0)
             {
                 Debug.Log("Daily quota completed! Cannot create more bombs today.");
@@ -82,6 +88,10 @@ public class EnterBomb : MonoBehaviour
 
         Debug.Log("Entered Bomb Minigame");
 
+        // Reset numpad to ensure it's cleared and inactive
+        if (numpadController != null)
+            numpadController.ResetMinigame();
+
         // Start Simon Says minigame after 3 seconds
         if (simonController != null)
             StartCoroutine(StartSimonWithDelay());
@@ -114,6 +124,11 @@ public class EnterBomb : MonoBehaviour
         Cursor.visible = false;
 
         Debug.Log("Exited Bomb Minigame");
+
+        if (simonController != null)
+            simonController.ResetMinigame();
+        if (numpadController != null)
+            numpadController.ResetMinigame();
     }
 
     // Called by SimonController when Simon Says is completed
@@ -138,15 +153,15 @@ public class EnterBomb : MonoBehaviour
             quotaManager.CompleteTask();       // Count 1 bomb
             Debug.Log("Bomb completed! Remaining quota: " + quotaManager.GetRemainingQuota());
 
-            if (quotaManager.GetRemainingQuota() > 0)
+            // Check if quota is now complete
+            if (quotaManager.IsQuotaCompleted())
             {
-                // Reset minigame with delay
-                if (simonController != null)
-                    StartCoroutine(ResetMinigamesWithDelay());
+                Debug.Log("Daily quota finished! Exiting to main camera. Head to therapy!");
+                ExitMinigame();             
             }
-            else
+            else if (quotaManager.GetRemainingQuota() > 0)
             {
-                ExitMinigame();               // Daily quota done, exit minigame
+                StartCoroutine(ResetMinigamesWithDelay());
             }
         }
     }
@@ -154,8 +169,12 @@ public class EnterBomb : MonoBehaviour
     IEnumerator ResetMinigamesWithDelay()
     {
         yield return new WaitForSeconds(3f);
-        simonController.ResetMinigame();
-        numpadController.ResetMinigame();
+
+        if (numpadController != null)
+            numpadController.ResetMinigame();
+
+        if (simonController != null)
+            simonController.ResetMinigame();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -175,5 +194,16 @@ public class EnterBomb : MonoBehaviour
     {
         Debug.Log("Too many failures! Exiting Bomb Minigame.");
         ExitMinigame();
+    }
+
+    // Call this after therapy is complete to unlock bomb access for next day
+    public void OnTherapyComplete()
+    {
+        if (quotaManager != null)
+        {
+            quotaManager.StartNextDay();
+            quotaManager.StartQuota();
+            Debug.Log("Therapy complete! New day started. You can now work on bombs again.");
+        }
     }
 }

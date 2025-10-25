@@ -61,19 +61,19 @@ public class TherapyDialogue : MonoBehaviour
 
         questions.Add(new TherapyQuestion(
             "And your relationships with coworkers and friends? Are they satisfactory?",
-            "I avoid them. They’re as dead inside as this place.",
-            "No one cares, and I don’t either."
+            "I avoid them. They're as dead inside as this place.",
+            "No one cares, and I don't either."
         ));
 
         questions.Add(new TherapyQuestion(
             "Understood. What activities outside of work bring you any sense of happiness?",
             "Nothing. I go home, sleep, repeat.",
-            "I can’t remember a time I actually felt joy."
+            "I can't remember a time I actually felt joy."
         ));
 
         questions.Add(new TherapyQuestion(
             "One last question. What would help you feel safer at work?",
-            "Knowing that a mistake won’t get me killed.",
+            "Knowing that a mistake won't get me killed.",
             "Somehow, having less fear of the machines around me."
         ));
     }
@@ -119,16 +119,11 @@ public class TherapyDialogue : MonoBehaviour
 
     private IEnumerator FinishSession()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         dialoguePanel.SetActive(false);
-        Debug.Log("Therapy session complete");
-        OnSessionComplete();
-    }
+        Debug.Log("Therapy session complete. Loading Day Summary...");
 
-    private void OnSessionComplete()
-    {
-
-        // This is where the next day UI overlay will happen
+        UnityEngine.SceneManagement.SceneManager.LoadScene("DaySummary");
     }
 }
