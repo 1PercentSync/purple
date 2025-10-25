@@ -1,9 +1,10 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ClockInStation : MonoBehaviour
 {
     [Header("References")]
-    public WorkClock workClock;  // Drag your WorkClock here
+    public WorkClock workClock;
 
     private bool playerInRange = false;
 
