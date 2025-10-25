@@ -5,22 +5,21 @@ using System;
 public class QuotaManager : MonoBehaviour
 {
     [Header("UI References")]
-    public TMP_Text hudText;          // Single HUD text showing day, time, quota
+    public TMP_Text hudText;       
 
     [Header("Quota Settings")]
     public int dailyQuota = 5;
 
     [HideInInspector]
-    public int bombsCreated = 0;      // Number of bombs created today
+    public int bombsCreated = 0;     
     private bool quotaActive = false;
     public int currentDay = 1;
 
-    public DateTime inGameTime;        // Updated externally by WorkClock
+    public DateTime inGameTime;       
     public event Action OnQuotaComplete;
 
     void Start()
     {
-        // Start HUD visible right away so the clock is always showing
         if (hudText != null)
             hudText.gameObject.SetActive(true);
 
@@ -32,7 +31,6 @@ public class QuotaManager : MonoBehaviour
         bombsCreated = 0;
         quotaActive = true;
 
-        // ? Removed forced time reset here — let WorkClock update it
         UpdateHUD();
 
         Debug.Log($"Day {currentDay} quota started! Daily quota: {dailyQuota}");
@@ -49,6 +47,8 @@ public class QuotaManager : MonoBehaviour
         {
             Debug.Log($"Day {currentDay} all tasks completed!");
             EndQuota();
+            ShowTherapyReminder();
+
             OnQuotaComplete?.Invoke();
         }
     }
@@ -56,11 +56,10 @@ public class QuotaManager : MonoBehaviour
     public void EndQuota()
     {
         quotaActive = false;
-
-        currentDay++;
         bombsCreated = 0;
 
-        Debug.Log($"Day {currentDay - 1} quota ended!");
+        Debug.Log($"Day {currentDay} quota ended!");
+        currentDay++;
     }
 
     public void UpdateHUD()
@@ -85,5 +84,14 @@ public class QuotaManager : MonoBehaviour
     public int GetRemainingQuota()
     {
         return dailyQuota - bombsCreated;
+    }
+
+    private void ShowTherapyReminder()
+    {
+        Debug.Log("Daily quota completed! Time to head to therapy.");
+        if (hudText != null)
+        {
+            hudText.text += "\n\nDaily quota complete! Head to therapy.";
+        }
     }
 }
