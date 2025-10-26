@@ -25961,7 +25961,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3503167532966410781, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_Name
-      value: Player Character
+      value: HumanDummy_M White
       objectReference: {fileID: 0}
     - target: {fileID: 3503167532966410781, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_TagString
