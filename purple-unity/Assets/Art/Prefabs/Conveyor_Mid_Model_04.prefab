@@ -51,7 +51,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 2f0f712f5b10c3b45adf9da7af444815, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b316a8e4ac25c1b47abe830b1571bb86, type: 2}
+      objectReference: {fileID: 2100000, guid: 8da57b5ba34f60343b45203cd416e430, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 2f0f712f5b10c3b45adf9da7af444815, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3849891367744134934, guid: ad1c7031aeb63884e8eb9648823cdbb9, type: 3}
     - target: {fileID: 919132149155446097, guid: 2f0f712f5b10c3b45adf9da7af444815, type: 3}
       propertyPath: m_Name
       value: Conveyor_Mid_Model_01
