@@ -34,6 +34,9 @@ public class TherapyDialogue : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
