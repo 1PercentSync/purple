@@ -11,34 +11,13 @@ public class NPCSystem : MonoBehaviour
     public bool useTagCheck = true;
     public string playerName = "HumanDummy_M White";
 
-    private bool playerDetected = false;
     private bool dialogueActive = false;
     private GameObject[] dialogueObjects;
     private int currentIndex = 0;
-    private bool keyReleasedSinceOpen = true;
 
     void Start()
     {
         if (canvas != null) canvas.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (!Input.GetKey(KeyCode.E))
-            keyReleasedSinceOpen = true;
-
-        if (playerDetected && Input.GetKeyDown(KeyCode.E))
-        {
-            if (!dialogueActive)
-            {
-                StartDialogue();
-            }
-            else
-            {
-                if (keyReleasedSinceOpen)
-                    NextDialogue();
-            }
-        }
     }
 
     void StartDialogue()
@@ -57,7 +36,6 @@ public class NPCSystem : MonoBehaviour
         }
 
         currentIndex = 0;
-        keyReleasedSinceOpen = false;
     }
 
     GameObject CreateDialogue(string text)
@@ -97,15 +75,9 @@ public class NPCSystem : MonoBehaviour
         currentIndex++;
 
         if (currentIndex < dialogueObjects.Length)
-        {
             dialogueObjects[currentIndex].SetActive(true);
-        }
         else
-        {
             EndDialogue();
-        }
-
-        keyReleasedSinceOpen = false;
     }
 
     void EndDialogue()
@@ -126,16 +98,14 @@ public class NPCSystem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bool matches = useTagCheck ? other.CompareTag("Player") : other.name == playerName;
-        if (matches) playerDetected = true;
+        if (matches && !dialogueActive)
+            StartDialogue();
     }
 
     private void OnTriggerExit(Collider other)
     {
         bool matches = useTagCheck ? other.CompareTag("Player") : other.name == playerName;
         if (matches)
-        {
-            playerDetected = false;
-            if (dialogueActive) EndDialogue();
-        }
+            EndDialogue();
     }
 }
