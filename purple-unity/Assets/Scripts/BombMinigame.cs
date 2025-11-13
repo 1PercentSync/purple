@@ -13,15 +13,22 @@ public class BombMinigame : MonoBehaviour
     public int sequenceLength = 5;
 
     [Header("Fail Settings")]
-    public int maxFails = 2; 
+    public int maxFails = 2;
+
+    [HideInInspector] public bool isActive = false;
 
     private List<int> sequence;
     private int playerStep = 0;
     private int failCount = 0;
-    private bool inputEnabled = true; 
+    private bool inputEnabled = false;
+    private bool isProcessingInput = false;
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
-    public EnterBomb enterBomb; 
-    public float startDelay = 1f; 
+    private Coroutine currentSequenceCoroutine;
+    private Coroutine wrongInputCoroutine;
+
+    public EnterBomb enterBomb;
+    public float startDelay = 1f;
 
     void Awake()
     {
@@ -33,13 +40,26 @@ public class BombMinigame : MonoBehaviour
                 sb.controller = this;
                 sb.buttonIndex = i;
             }
+
+            Renderer rend = simonButtons[i].GetComponent<Renderer>();
+            if (rend != null)
+                originalColors[rend] = rend.material.color;
         }
     }
 
     public void StartMinigame()
     {
+        StopAllMinigameCoroutines();
+        ResetAllButtonColors();
+
+        isActive = true;
+        failCount = 0;
+        playerStep = 0;
+        inputEnabled = false;
+        isProcessingInput = false;
+
         GenerateSequence();
-        StartCoroutine(PlaySequenceWithDelay(startDelay));
+        currentSequenceCoroutine = StartCoroutine(PlaySequenceWithDelay(startDelay));
     }
 
     void GenerateSequence()
@@ -48,24 +68,106 @@ public class BombMinigame : MonoBehaviour
         for (int i = 0; i < sequenceLength; i++)
             sequence.Add(Random.Range(0, simonButtons.Length));
 
-        playerStep = 0;
-        inputEnabled = false; // disable input while sequence plays
         Debug.Log("Simon sequence: " + string.Join(",", sequence));
+    }
+
+    public void PlayerPress(int buttonIndex)
+    {
+        if (!IsInputEnabled()) return;
+        if (buttonIndex < 0 || buttonIndex >= simonButtons.Length) return;
+        if (playerStep >= sequence.Count) return;
+
+        isProcessingInput = true;
+
+        if (sequence[playerStep] == buttonIndex)
+        {
+            playerStep++;
+            Renderer rend = simonButtons[buttonIndex].GetComponent<Renderer>();
+            if (rend != null)
+                StartCoroutine(FlashButtonAndUnlock(rend, Color.green, 0.3f));
+            else
+                isProcessingInput = false;
+
+            if (playerStep >= sequence.Count)
+            {
+                inputEnabled = false;
+                enterBomb?.OnSimonComplete();
+            }
+        }
+        else
+        {
+            failCount++;
+            inputEnabled = false;
+            isProcessingInput = false;
+
+            if (failCount >= maxFails)
+            {
+                ExitDueToFail();
+                return;
+            }
+
+            playerStep = 0;
+
+            if (wrongInputCoroutine != null)
+                StopCoroutine(wrongInputCoroutine);
+
+            wrongInputCoroutine = StartCoroutine(HandleWrongInput());
+        }
+    }
+
+    void ExitDueToFail()
+    {
+        isActive = false;
+
+        StopAllMinigameCoroutines();
+
+        ResetAllButtonColors();
+        playerStep = 0;
+        failCount = 0;
+
+        enterBomb?.ExitBombCamera();
+    }
+
+    public void ResetMinigame(bool autoStart = true)
+    {
+        StopAllMinigameCoroutines();
+
+        ResetAllButtonColors();
+        playerStep = 0;
+        failCount = 0;
+        inputEnabled = false;
+        isProcessingInput = false;
+        isActive = false;
+
+        if (autoStart)
+            StartMinigame();
+    }
+
+    public bool IsInputEnabled()
+    {
+        return isActive && inputEnabled && !isProcessingInput;
     }
 
     IEnumerator PlaySequenceWithDelay(float delay)
     {
+        if (!isActive) yield break;
         yield return new WaitForSeconds(delay);
+        if (!isActive) yield break;
+
         yield return PlaySequence();
-        inputEnabled = true; // enable input after sequence finishes
+
+        if (isActive)
+            inputEnabled = true;
     }
 
     IEnumerator PlaySequence()
     {
         inputEnabled = false;
+        isProcessingInput = false;
 
         foreach (int index in sequence)
         {
+            if (!isActive) yield break;
             if (index < 0 || index >= simonButtons.Length) continue;
 
             GameObject button = simonButtons[index];
@@ -73,86 +175,58 @@ public class BombMinigame : MonoBehaviour
             {
                 Renderer rend = button.GetComponent<Renderer>();
                 SimonButton sb = button.GetComponent<SimonButton>();
-
-                if (sb != null)
-                    sb.PlaySound();
-
+                sb?.PlaySound();
                 if (rend != null)
                     yield return StartCoroutine(FlashButton(rend, Color.red, highlightDuration));
             }
 
             yield return new WaitForSeconds(timeBetweenHighlights);
         }
-
-        inputEnabled = true;
     }
 
     IEnumerator FlashButton(Renderer rend, Color color, float duration)
     {
-        Color original = rend.material.color;
+        if (rend == null || !isActive) yield break;
+
+        Color original = originalColors.ContainsKey(rend) ? originalColors[rend] : Color.white;
         rend.material.color = color;
         yield return new WaitForSeconds(duration);
-        rend.material.color = original;
+
+        if (rend != null && isActive)
+            rend.material.color = original;
     }
 
-    public void PlayerPress(int buttonIndex)
+    IEnumerator FlashButtonAndUnlock(Renderer rend, Color color, float duration)
     {
-        if (!inputEnabled) return;
+        yield return StartCoroutine(FlashButton(rend, color, duration));
+        if (isActive)
+            isProcessingInput = false;
+    }
 
-        if (buttonIndex < 0 || buttonIndex >= simonButtons.Length)
+    IEnumerator HandleWrongInput()
+    {
+        if (!isActive || failCount >= maxFails) yield break;
+
+        yield return StartCoroutine(FlashAllButtons(Color.red, 0.5f));
+
+        float waitTime = 0.5f;
+        float elapsed = 0f;
+        while (elapsed < waitTime)
         {
-            Debug.LogWarning($"Button index {buttonIndex} out of bounds!");
-            return;
+            if (!isActive || failCount >= maxFails) yield break;
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
-        if (playerStep >= sequence.Count) return;
+        if (!isActive || failCount >= maxFails) yield break;
 
-        if (sequence[playerStep] == buttonIndex)
-        {
-            Debug.Log($"Correct button {buttonIndex} pressed!");
-            playerStep++;
-
-            SimonButton sb = simonButtons[buttonIndex].GetComponent<SimonButton>();
-            Renderer rend = simonButtons[buttonIndex].GetComponent<Renderer>();
-
-            if (sb != null)
-                sb.PlaySound();
-
-            if (rend != null)
-                StartCoroutine(FlashButton(rend, Color.green, 0.3f));
-
-            if (playerStep >= sequence.Count)
-            {
-                Debug.Log("Simon sequence completed!");
-                playerStep = 0;
-
-                // tell EnterBomb that Simon is done
-                if (enterBomb != null)
-                    enterBomb.OnSimonComplete();
-            }
-        }
-        else
-        {
-            Debug.Log("Wrong button! Resetting sequence...");
-            failCount++;
-            playerStep = 0;
-            inputEnabled = false;
-
-            if (failCount >= maxFails)
-            {
-                Debug.Log("Max fails reached, kicking player out!");
-                if (enterBomb != null)
-                    enterBomb.ExitBombCamera();
-                return;
-            }
-
-            StartCoroutine(FlashAllButtons(Color.red, 0.5f));
-            StartCoroutine(PlaySequenceWithDelay(1f));
-        }
+        currentSequenceCoroutine = StartCoroutine(PlaySequenceWithDelay(1f));
     }
 
     IEnumerator FlashAllButtons(Color color, float duration)
     {
+        if (!isActive) yield break;
+
         List<Renderer> rends = new List<Renderer>();
         foreach (var btn in simonButtons)
         {
@@ -169,17 +243,49 @@ public class BombMinigame : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
+        if (!isActive) yield break;
+
         foreach (var rend in rends)
         {
             if (rend != null)
-                rend.material.color = Color.white;
+            {
+                Color original = originalColors.ContainsKey(rend) ? originalColors[rend] : Color.white;
+                rend.material.color = original;
+            }
         }
     }
 
-    public void ResetMinigame()
+    void ResetAllButtonColors()
     {
-        playerStep = 0;
-        failCount = 0;
-        StartMinigame();
+        foreach (var btn in simonButtons)
+        {
+            if (btn != null)
+            {
+                Renderer rend = btn.GetComponent<Renderer>();
+                if (rend != null)
+                {
+                    Color original = originalColors.ContainsKey(rend) ? originalColors[rend] : Color.white;
+                    rend.material.color = original;
+                }
+            }
+        }
+    }
+
+    void StopAllMinigameCoroutines()
+    {
+        if (currentSequenceCoroutine != null)
+            StopCoroutine(currentSequenceCoroutine);
+        if (wrongInputCoroutine != null)
+            StopCoroutine(wrongInputCoroutine);
+
+        currentSequenceCoroutine = null;
+        wrongInputCoroutine = null;
+    }
+
+    void OnDisable()
+    {
+        isActive = false;
+        StopAllMinigameCoroutines();
+        ResetAllButtonColors();
     }
 }

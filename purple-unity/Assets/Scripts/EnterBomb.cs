@@ -7,9 +7,9 @@ public class EnterBomb : MonoBehaviour
     public Camera mainCamera;
     public Camera bombCamera;
     public PlayerMovement playerMovement;
-    public QuotaManager quotaManager;            // QuotaManager
-    public BombMinigame simonController;         // Simon minigame
-    public NumpadMinigame numpadController;      // Numpad minigame 
+    public QuotaManager quotaManager;
+    public BombMinigame simonController;
+    public NumpadMinigame numpadController;
 
     private bool inMinigame = false;
     private bool playerInRange = false;
@@ -17,21 +17,21 @@ public class EnterBomb : MonoBehaviour
     private BombCameraLook bombLookScript;
     private Quaternion bombDefaultRotation;
 
+    private Coroutine simonDelayCoroutine;
+    private Coroutine numpadDelayCoroutine;
+    private Coroutine resetMinigamesCoroutine;
+
     void Start()
     {
         if (bombCamera != null)
         {
             bombDefaultRotation = bombCamera.transform.rotation;
             bombCamera.gameObject.SetActive(false);
-
             bombLookScript = bombCamera.GetComponent<BombCameraLook>();
-            if (bombLookScript != null)
-                bombLookScript.enabled = false;
+            if (bombLookScript != null) bombLookScript.enabled = false;
         }
 
-        if (mainCamera != null)
-            mainCamera.gameObject.SetActive(true);
-
+        mainCamera?.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -42,19 +42,12 @@ public class EnterBomb : MonoBehaviour
         {
             if (quotaManager == null || !quotaManager.IsQuotaActive())
             {
-                Debug.Log("You need to clock in before creating bombs!");
+                Debug.Log("Clock in first!");
                 return;
             }
-
-            if (quotaManager.IsQuotaCompleted())
+            if (quotaManager.IsQuotaCompleted() || quotaManager.GetRemainingQuota() <= 0)
             {
-                Debug.Log("Daily quota completed! Please visit therapy before working on more bombs.");
-                return;
-            }
-
-            if (quotaManager.GetRemainingQuota() <= 0)
-            {
-                Debug.Log("Daily quota completed! Cannot create more bombs today.");
+                Debug.Log("Daily quota done!");
                 return;
             }
 
@@ -68,142 +61,120 @@ public class EnterBomb : MonoBehaviour
     void EnterMinigame()
     {
         inMinigame = true;
-
-        if (mainCamera != null)
-            mainCamera.gameObject.SetActive(false);
-
+        mainCamera?.gameObject.SetActive(false);
         if (bombCamera != null)
         {
             bombCamera.gameObject.SetActive(true);
             bombCamera.transform.rotation = bombDefaultRotation;
-            if (bombLookScript != null)
-                bombLookScript.enabled = true;
+            if (bombLookScript != null) bombLookScript.enabled = true;
         }
 
-        if (playerMovement != null)
-            playerMovement.enabled = false;
+        if (playerMovement != null) playerMovement.enabled = false;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         Debug.Log("Entered Bomb Minigame");
 
-        // Reset numpad to ensure it's cleared and inactive
-        if (numpadController != null)
-            numpadController.ResetMinigame();
-
-        // Start Simon Says minigame after 3 seconds
-        if (simonController != null)
-            StartCoroutine(StartSimonWithDelay());
+        simonDelayCoroutine = StartCoroutine(StartSimonWithDelay());
     }
 
     IEnumerator StartSimonWithDelay()
     {
-        yield return new WaitForSeconds(3f);
-        simonController.StartMinigame();
+        yield return new WaitForSeconds(1f);
+        if (!inMinigame) yield break;
+        simonController?.StartMinigame();
     }
 
     void ExitMinigame()
     {
         inMinigame = false;
-
-        if (mainCamera != null)
-            mainCamera.gameObject.SetActive(true);
-
+        mainCamera?.gameObject.SetActive(true);
         if (bombCamera != null)
         {
             bombCamera.gameObject.SetActive(false);
-            if (bombLookScript != null)
-                bombLookScript.enabled = false;
+            if (bombLookScript != null) bombLookScript.enabled = false;
         }
 
-        if (playerMovement != null)
-            playerMovement.enabled = true;
+        if (playerMovement != null) playerMovement.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         Debug.Log("Exited Bomb Minigame");
 
-        if (simonController != null)
-            simonController.ResetMinigame();
-        if (numpadController != null)
-            numpadController.ResetMinigame();
+        StopAllDelayedCoroutines();
     }
 
-    // Called by SimonController when Simon Says is completed
     public void OnSimonComplete()
     {
-        Debug.Log("Simon Says complete! Starting Numpad in 5 seconds...");
-        StartCoroutine(StartNumpadAfterDelay());
+        Debug.Log("Simon complete! Starting Numpad in 1 second...");
+        numpadDelayCoroutine = StartCoroutine(StartNumpadAfterDelay());
     }
 
     IEnumerator StartNumpadAfterDelay()
     {
-        yield return new WaitForSeconds(5f);
-        if (numpadController != null)
-            numpadController.StartMinigame();
+        yield return new WaitForSeconds(1f);
+        if (!inMinigame) yield break;
+        numpadController?.StartMinigame();
     }
 
-    // Called by NumpadController when Numpad sequence is completed
     public void OnNumpadComplete()
     {
         if (quotaManager != null)
         {
-            quotaManager.CompleteTask();       // Count 1 bomb
-            Debug.Log("Bomb completed! Remaining quota: " + quotaManager.GetRemainingQuota());
+            quotaManager.CompleteTask();
+            Debug.Log("Bomb finished! Remaining quota: " + quotaManager.GetRemainingQuota());
 
-            // Check if quota is now complete
-            if (quotaManager.IsQuotaCompleted())
+            if (!quotaManager.IsQuotaCompleted())
             {
-                Debug.Log("Daily quota finished! Exiting to main camera. Head to therapy!");
-                ExitMinigame();             
+                // restart the process
+                resetMinigamesCoroutine = StartCoroutine(RestartMinigamesAfterDelay(1f));
             }
-            else if (quotaManager.GetRemainingQuota() > 0)
+            else
             {
-                StartCoroutine(ResetMinigamesWithDelay());
+                ExitMinigame();
             }
         }
     }
 
-    IEnumerator ResetMinigamesWithDelay()
+    IEnumerator RestartMinigamesAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(3f);
-
-        if (numpadController != null)
-            numpadController.ResetMinigame();
-
-        if (simonController != null)
-            simonController.ResetMinigame();
+        yield return new WaitForSeconds(delay);
+        if (!inMinigame) yield break;
+        simonController?.ResetMinigame();
+        numpadController?.ResetMinigame(false); // autoStart false
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-            playerInRange = true;
+        if (other.CompareTag("Player")) playerInRange = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-            playerInRange = false;
+        if (other.CompareTag("Player")) playerInRange = false;
     }
 
-    // Called by either minigame after too many failures
     public void ExitBombCamera()
     {
         Debug.Log("Too many failures! Exiting Bomb Minigame.");
+        StopAllDelayedCoroutines();
+        simonController?.ResetMinigame(false);
+        numpadController?.ResetMinigame(false);
         ExitMinigame();
     }
 
-    // Call this after therapy is complete to unlock bomb access for next day
-    public void OnTherapyComplete()
+    private void StopAllDelayedCoroutines()
     {
-        if (quotaManager != null)
-        {
-            quotaManager.StartNextDay();
-            quotaManager.StartQuota();
-            Debug.Log("Therapy complete! New day started. You can now work on bombs again.");
-        }
+        simonDelayCoroutine = StopCoroutineSafe(simonDelayCoroutine);
+        numpadDelayCoroutine = StopCoroutineSafe(numpadDelayCoroutine);
+        resetMinigamesCoroutine = StopCoroutineSafe(resetMinigamesCoroutine);
+    }
+
+    private Coroutine StopCoroutineSafe(Coroutine coroutine)
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        return null;
     }
 }

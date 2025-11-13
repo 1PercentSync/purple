@@ -14,7 +14,7 @@ public class SimonButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (controller != null)
+        if (controller != null && controller.IsInputEnabled())
         {
             controller.PlayerPress(buttonIndex);
             PlaySound();

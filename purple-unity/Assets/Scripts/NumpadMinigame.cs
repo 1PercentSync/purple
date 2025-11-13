@@ -9,9 +9,9 @@ public class NumpadMinigame : MonoBehaviour
     public GameObject[] numpadButtons;
 
     [Header("UI")]
-    public TMP_Text screenText;  // Assign your screen TMP_Text here
+    public TMP_Text screenText;
 
-    public float codeDisplayTime = 3f; // Time to show code
+    public float codeDisplayTime = 3f;
     public int codeLength = 4;
     public int maxFails = 2;
 
@@ -20,6 +20,7 @@ public class NumpadMinigame : MonoBehaviour
     private int failCount = 0;
     private bool inputEnabled = false;
     private bool isActive = false;
+    private bool isProcessingInput = false;
 
     public EnterBomb enterBomb;
 
@@ -35,7 +36,7 @@ public class NumpadMinigame : MonoBehaviour
             }
 
             Collider col = numpadButtons[i].GetComponent<Collider>();
-            if (col != null) col.enabled = false; // Disable buttons initially
+            if (col != null) col.enabled = false;
         }
 
         ClearScreen();
@@ -43,15 +44,17 @@ public class NumpadMinigame : MonoBehaviour
 
     public void StartMinigame()
     {
+        StopAllCoroutines();
+
         isActive = true;
         GenerateCode();
         playerStep = 0;
         failCount = 0;
         inputEnabled = false;
+        isProcessingInput = false;
 
         EnableAllButtons();
 
-        // Start coroutine to show code then switch to input
         StartCoroutine(ShowCodeThenStartInput());
     }
 
@@ -59,12 +62,11 @@ public class NumpadMinigame : MonoBehaviour
     {
         codeSequence = new List<int>();
         for (int i = 0; i < codeLength; i++)
-            codeSequence.Add(Random.Range(1, numpadButtons.Length + 1)); // 1-9
+            codeSequence.Add(Random.Range(1, numpadButtons.Length + 1));
     }
 
     IEnumerator ShowCodeThenStartInput()
     {
-        // Show full code
         if (screenText != null)
         {
             screenText.color = Color.yellow;
@@ -73,17 +75,18 @@ public class NumpadMinigame : MonoBehaviour
 
         yield return new WaitForSeconds(codeDisplayTime);
 
-        // Clear screen for input
         playerStep = 0;
         inputEnabled = true;
+        isProcessingInput = false;
         UpdateScreen();
     }
 
     public void PressNumber(int number)
     {
-        if (!inputEnabled || !isActive) return; 
-
+        if (!inputEnabled || !isActive || isProcessingInput) return;
         if (playerStep >= codeSequence.Count) return;
+
+        isProcessingInput = true;
 
         if (codeSequence[playerStep] == number)
         {
@@ -93,25 +96,39 @@ public class NumpadMinigame : MonoBehaviour
             if (playerStep >= codeSequence.Count)
             {
                 inputEnabled = false;
-                isActive = false; 
+                isActive = false;
                 DisableAllButtons();
                 enterBomb?.OnNumpadComplete();
             }
+            else
+                isProcessingInput = false;
         }
         else
         {
             failCount++;
             playerStep = 0;
-            UpdateScreen(true); // flash red for wrong input
+            UpdateScreen(true);
 
             if (failCount >= maxFails)
             {
                 inputEnabled = false;
-                isActive = false; 
+                isActive = false;
+                isProcessingInput = false;
                 DisableAllButtons();
+                StopAllCoroutines();
                 enterBomb?.ExitBombCamera();
             }
+            else
+            {
+                StartCoroutine(UnlockAfterDelay(0.5f));
+            }
         }
+    }
+
+    IEnumerator UnlockAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isProcessingInput = false;
     }
 
     void UpdateScreen(bool wrong = false)
@@ -129,12 +146,7 @@ public class NumpadMinigame : MonoBehaviour
             screenText.color = Color.green;
             string display = "";
             for (int i = 0; i < codeLength; i++)
-            {
-                if (i < playerStep)
-                    display += codeSequence[i] + " "; // show entered number
-                else
-                    display += "_ "; // placeholder
-            }
+                display += (i < playerStep ? codeSequence[i] : "_") + " ";
             screenText.text = display.TrimEnd();
         }
     }
@@ -142,26 +154,23 @@ public class NumpadMinigame : MonoBehaviour
     IEnumerator ResetScreenColor()
     {
         yield return new WaitForSeconds(0.5f);
-        screenText.color = Color.white;
-        UpdateScreen();
+        if (screenText != null)
+        {
+            screenText.color = Color.white;
+            UpdateScreen();
+        }
     }
 
     void EnableAllButtons()
     {
         foreach (var btn in numpadButtons)
-        {
-            var col = btn.GetComponent<Collider>();
-            if (col != null) col.enabled = true;
-        }
+            if (btn != null) btn.GetComponent<Collider>().enabled = true;
     }
 
     void DisableAllButtons()
     {
         foreach (var btn in numpadButtons)
-        {
-            var col = btn.GetComponent<Collider>();
-            if (col != null) col.enabled = false;
-        }
+            if (btn != null) btn.GetComponent<Collider>().enabled = false;
     }
 
     void ClearScreen()
@@ -173,12 +182,24 @@ public class NumpadMinigame : MonoBehaviour
         }
     }
 
-    public void ResetMinigame()
+    public void ResetMinigame(bool autoStart = true)
     {
-        isActive = false; 
+        StopAllCoroutines();
+        isActive = false;
         playerStep = 0;
         failCount = 0;
-        DisableAllButtons(); 
-        ClearScreen(); 
+        inputEnabled = false;
+        isProcessingInput = false;
+        DisableAllButtons();
+        ClearScreen();
+
+        if (autoStart)
+            StartMinigame();
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        ResetMinigame(false);
     }
 }

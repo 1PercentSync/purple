@@ -1,40 +1,44 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class DoorTransition : MonoBehaviour
 {
     [Header("Door Settings")]
-    public string sceneToLoad = "TherapyRoom";  
-    public KeyCode interactKey = KeyCode.E;   
+    public string sceneToLoad = "TherapyRoom";
 
-    private bool isPlayerNearby = false;
+    [Header("References")]
+    public QuotaManager quotaManager;
 
-    private void Update()
-    {
-        if (isPlayerNearby && Input.GetKeyDown(interactKey))
-        {
-            LoadScene();
-        }
-    }
-
-    private void LoadScene()
-    {
-        SceneManager.LoadScene(sceneToLoad);
-    }
+    private bool hasTriggered = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !hasTriggered)
         {
-            isPlayerNearby = true;
+            if (quotaManager == null)
+            {
+                Debug.LogWarning("QuotaManager not assigned on DoorTransition!");
+                return;
+            }
+
+            Debug.Log($"Quota completed? {quotaManager.IsQuotaCompleted()}");
+
+            if (quotaManager.IsQuotaCompleted())
+            {
+                hasTriggered = true;
+                StartCoroutine(LoadSceneNextFrame());
+            }
+            else
+            {
+                Debug.Log("Complete today's quota first!");
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator LoadSceneNextFrame()
     {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerNearby = false;
-        }
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

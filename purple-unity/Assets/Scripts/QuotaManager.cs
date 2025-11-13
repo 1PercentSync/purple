@@ -8,7 +8,7 @@ public class QuotaManager : MonoBehaviour
     public TMP_Text hudText;
 
     [Header("Quota Settings")]
-    public int dailyQuota = 5;
+    public int dailyQuota = 3;
 
     [HideInInspector]
     public int bombsCreated = 0;
