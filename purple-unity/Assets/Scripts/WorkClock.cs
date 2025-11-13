@@ -11,6 +11,9 @@ public class WorkClock : MonoBehaviour
     [Header("Quota / HUD")]
     public QuotaManager quotaManager;
 
+    [Header("Time Settings")]
+    public float timeScale = 80f;         
+
     private bool isWorking = false;
 
     void Start()
@@ -42,18 +45,24 @@ public class WorkClock : MonoBehaviour
 
     private IEnumerator UpdateClockRoutine()
     {
+        float realSecond = 1f;
+
         while (isWorking)
         {
-            // Increment in-game time
-            quotaManager.inGameTime = quotaManager.inGameTime.AddSeconds(1);
+            quotaManager.inGameTime = quotaManager.inGameTime.AddSeconds(timeScale * realSecond);
 
-            // Update HUD overlay
             quotaManager.UpdateHUD();
 
             if (ClockTime != null)
                 ClockTime.text = quotaManager.inGameTime.ToString("HH:mm:ss");
 
-            yield return new WaitForSeconds(1f);
+            if (quotaManager.inGameTime.Hour >= 17)
+            {
+                EndWorkday();
+                yield break;
+            }
+
+            yield return new WaitForSeconds(realSecond);
         }
     }
 
