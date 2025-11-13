@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
-    public float jumpHeight = 1.5f;
+    //public float jumpHeight = 1.5f;
     public float gravity = -9.81f;
 
     private CharacterController controller;
@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        // Move relative to the player’s forward (yaw rotation)
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
         float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
@@ -49,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity = -0.5f;
             if (Input.GetButtonDown("Jump"))
             {
-                verticalVelocity = Mathf.Sqrt(-2f * gravity * jumpHeight);
+                verticalVelocity = -0.5f;
             }
         }
         else
