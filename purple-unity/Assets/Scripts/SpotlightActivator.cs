@@ -18,7 +18,15 @@ public class SpotlightActivator : MonoBehaviour
         Debug.Log("Spotlights are active");
 
         foreach (var light in spotlights)
+        {
             light.SetActive(true);
+            AudioSource audio = light.GetComponent<AudioSource>();
+            if (audio != null) {
+                audio.Play();
+             }
+        }
+
+
     }
 
     private void OnDestroy()
