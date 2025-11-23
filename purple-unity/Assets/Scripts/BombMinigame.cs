@@ -15,6 +15,10 @@ public class BombMinigame : MonoBehaviour
     [Header("Fail Settings")]
     public int maxFails = 2;
 
+    [Header("Explosion")]
+    public ExplosionSpawner explosionSpawner;   // <-- Added
+    public Transform explosionPoint;            // Optional (assign bomb center)
+
     [HideInInspector] public bool isActive = false;
 
     private List<int> sequence;
@@ -102,7 +106,7 @@ public class BombMinigame : MonoBehaviour
 
             if (failCount >= maxFails)
             {
-                ExitDueToFail();
+                ExitDueToFail();   // <-- Explosion added here
                 return;
             }
 
@@ -120,8 +124,23 @@ public class BombMinigame : MonoBehaviour
         isActive = false;
 
         StopAllMinigameCoroutines();
-
         ResetAllButtonColors();
+
+        if (explosionSpawner != null)
+        {
+
+            if (explosionPoint != null)
+                explosionSpawner.transform.position = explosionPoint.position;
+            else
+                explosionSpawner.transform.position = transform.position;
+
+            explosionSpawner.TriggerExplosion();
+        }
+        else
+        {
+            Debug.LogWarning("ExplosionSpawner not assigned!");
+        }
+
         playerStep = 0;
         failCount = 0;
 
@@ -177,19 +196,23 @@ public class BombMinigame : MonoBehaviour
                 SimonButton sb = button.GetComponent<SimonButton>();
                 sb?.PlaySound();
                 if (rend != null)
-                    yield return StartCoroutine(FlashButton(rend, Color.red, highlightDuration));
+                    yield return StartCoroutine(FlashButton(rend, highlightDuration));
             }
 
             yield return new WaitForSeconds(timeBetweenHighlights);
         }
     }
 
-    IEnumerator FlashButton(Renderer rend, Color color, float duration)
+    IEnumerator FlashButton(Renderer rend, float duration)
     {
         if (rend == null || !isActive) yield break;
 
         Color original = originalColors.ContainsKey(rend) ? originalColors[rend] : Color.white;
-        rend.material.color = color;
+
+        Color glow = original * 2f;   
+        glow.a = 1f;
+
+        rend.material.color = glow;
         yield return new WaitForSeconds(duration);
 
         if (rend != null && isActive)
@@ -198,7 +221,7 @@ public class BombMinigame : MonoBehaviour
 
     IEnumerator FlashButtonAndUnlock(Renderer rend, Color color, float duration)
     {
-        yield return StartCoroutine(FlashButton(rend, color, duration));
+        yield return StartCoroutine(FlashButton(rend, highlightDuration));
         if (isActive)
             isProcessingInput = false;
     }

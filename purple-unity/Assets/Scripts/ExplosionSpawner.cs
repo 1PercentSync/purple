@@ -1,20 +1,34 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExplosionSpawner : MonoBehaviour
 {
-    public GameObject explosionPrefab;
+    [Header("Explosion")]
+    public GameObject explosionPrefab; 
+    public float destroyDelay = 2f;     
 
-    public void SpawnExplosion(Vector3 position)
+    [Header("Scene")]
+    public string sceneToLoad = "NextScene";
+
+    public void TriggerExplosion()
     {
-        if (explosionPrefab == null)
+        if (explosionPrefab != null)
         {
-            Debug.Log("Need VFX assigned");
-            return;
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Need VFX assigned");
         }
 
-        GameObject explosion = Instantiate(explosionPrefab, position, Quaternion.identity);
+        // Start the delayed scene change
+        StartCoroutine(SwitchSceneAfterDelay());
+    }
 
-        Destroy(explosion, 5f);
+    private System.Collections.IEnumerator SwitchSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(destroyDelay);
 
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
