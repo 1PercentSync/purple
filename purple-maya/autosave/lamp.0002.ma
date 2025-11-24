@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: lamp.ma
-//Last modified: Mon, Nov 24, 2025 08:10:49 AM
+//Name: lamp.0002.ma
+//Last modified: Mon, Nov 24, 2025 07:59:46 AM
 //Codeset: 936
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,18 +11,19 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 11 Enterprise v2009 (Build: 26200)";
-fileInfo "UUID" "C55A0585-4DAA-85C3-B588-D69ED2CDF704";
+fileInfo "UUID" "A5BCB9CD-4710-44F5-75F5-C8AAFE675884";
+fileInfo "exportedFrom" "D:/Github/purple/purple-maya/scenes/lamp.ma";
 createNode transform -s -n "persp";
 	rename -uid "426B6998-4391-7388-4774-2CA703FFB63A";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -0.1545045802605185 2.7299188589513328 1.0921150957666148 ;
-	setAttr ".r" -type "double3" -55.800000000001774 -367.59999999992874 0 ;
+	setAttr ".t" -type "double3" -0.4172854954936272 -0.002900449004865413 3.0615664497296997 ;
+	setAttr ".r" -type "double3" 15.600000000000245 -367.59999999994466 1.0027317950493313e-15 ;
 	setAttr ".rpt" -type "double3" 7.4410742643295523e-18 -8.4295454458211299e-18 5.4886930066602928e-18 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "C520D2F5-4CA7-FA07-1D06-E8A1AEA962B7";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 2.2134426886746441;
+	setAttr ".coi" 3.3546201831429321;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -256738,10 +256739,6 @@ connectAttr ":defaultColorMgtGlobals.cfp" "Female_01_100k:defaultMat1F.cmcp";
 connectAttr ":defaultColorMgtGlobals.wsn" "Female_01_100k:defaultMat1F.ws";
 connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
 		;
-connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
-		 -na;
-connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
-connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "layerManager.dli[1]" "ref.id";
 connectAttr "polyCylinder1.out" "polyExtrudeFace1.ip";
 connectAttr "|group1|pCylinder1|pCylinderShape1.wm" "polyExtrudeFace1.mp";
@@ -256918,4 +256915,4 @@ connectAttr "groupId8.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId9.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId10.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId11.msg" ":initialShadingGroup.gn" -na;
-// End of lamp.ma
+// End of lamp.0002.ma
