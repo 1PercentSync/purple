@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: radio.ma
-//Last modified: Mon, Nov 24, 2025 09:20:59 AM
+//Name: radio.0003.ma
+//Last modified: Mon, Nov 24, 2025 09:30:59 AM
 //Codeset: 936
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,7 +11,8 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 11 Enterprise v2009 (Build: 26200)";
-fileInfo "UUID" "0D35C489-405D-4BE8-D460-9193E8FA3D94";
+fileInfo "UUID" "FCB1755A-48E4-B5B9-64B4-999153396089";
+fileInfo "exportedFrom" "D:/Github/purple/purple-maya/scenes/radio.ma";
 createNode transform -s -n "persp";
 	rename -uid "426B6998-4391-7388-4774-2CA703FFB63A";
 	setAttr ".v" no;
@@ -256993,10 +256994,6 @@ connectAttr ":defaultColorMgtGlobals.cfp" "Female_01_100k:defaultMat1F.cmcp";
 connectAttr ":defaultColorMgtGlobals.wsn" "Female_01_100k:defaultMat1F.ws";
 connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
 		;
-connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
-		 -na;
-connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
-connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "layerManager.dli[1]" "ref.id";
 connectAttr "polyCube1.out" "polyBevel1.ip";
 connectAttr "pCubeShape1.wm" "polyBevel1.mp";
@@ -257091,4 +257088,4 @@ connectAttr "pCylinderShape4.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCylinderShape5.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "radioShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId1.msg" ":initialShadingGroup.gn" -na;
-// End of radio.ma
+// End of radio.0003.ma
