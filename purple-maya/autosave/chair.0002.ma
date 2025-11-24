@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: chair.ma
-//Last modified: Mon, Nov 24, 2025 07:46:45 AM
+//Name: chair.0002.ma
+//Last modified: Mon, Nov 24, 2025 07:24:36 AM
 //Codeset: 936
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,7 +11,8 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 11 Enterprise v2009 (Build: 26200)";
-fileInfo "UUID" "8DCB872A-44DE-CB93-AAD8-DE8C4042280B";
+fileInfo "UUID" "1FC78E04-45DF-67BB-97B8-26BE0ADEACA9";
+fileInfo "exportedFrom" "D:/Github/purple/purple-maya/scenes/chair.ma";
 createNode transform -s -n "persp";
 	rename -uid "426B6998-4391-7388-4774-2CA703FFB63A";
 	setAttr ".v" no;
@@ -270078,10 +270079,6 @@ connectAttr ":defaultColorMgtGlobals.cfp" "Female_01_100k:defaultMat1F.cmcp";
 connectAttr ":defaultColorMgtGlobals.wsn" "Female_01_100k:defaultMat1F.ws";
 connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
 		;
-connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
-		 -na;
-connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
-connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "layerManager.dli[1]" "ref.id";
 connectAttr "lambert2.oc" "Leg_LP4SG.ss";
 connectAttr "Leg_LP4Shape.iog" "Leg_LP4SG.dsm" -na;
@@ -270296,4 +270293,4 @@ connectAttr "pCubeShape48.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCylinderShape37.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCylinderShape41.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape45.iog" ":initialShadingGroup.dsm" -na;
-// End of chair.ma
+// End of chair.0002.ma
