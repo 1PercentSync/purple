@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: punchClock.ma
-//Last modified: Wed, Nov 26, 2025 05:28:44 AM
+//Name: punchClock.0002.ma
+//Last modified: Wed, Nov 26, 2025 05:28:35 AM
 //Codeset: 936
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,7 +11,8 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 11 Enterprise v2009 (Build: 26200)";
-fileInfo "UUID" "E994617A-40B3-1DFB-323C-8B9578A8A584";
+fileInfo "UUID" "AA2F23FA-4049-9611-CAE6-96AA21EEEA58";
+fileInfo "exportedFrom" "D:/Github/purple/purple-maya/scenes/punchClock.ma";
 createNode transform -s -n "persp";
 	rename -uid "426B6998-4391-7388-4774-2CA703FFB63A";
 	setAttr ".v" no;
@@ -256282,10 +256283,6 @@ connectAttr ":defaultColorMgtGlobals.cfp" "Female_01_100k:defaultMat1F.cmcp";
 connectAttr ":defaultColorMgtGlobals.wsn" "Female_01_100k:defaultMat1F.ws";
 connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
 		;
-connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
-		 -na;
-connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
-connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "layerManager.dli[1]" "ref.id";
 connectAttr "layerManager.dli[3]" "layer1.id";
 connectAttr "polySurfaceShape1.o" "polySplit1.ip";
@@ -256385,4 +256382,4 @@ connectAttr "pCubeShape2.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape3.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "punchClockShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId1.msg" ":initialShadingGroup.gn" -na;
-// End of punchClock.ma
+// End of punchClock.0002.ma
