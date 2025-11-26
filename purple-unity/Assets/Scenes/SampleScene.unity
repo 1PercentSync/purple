@@ -5590,6 +5590,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75798992}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &78770882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+  m_PrefabInstance: {fileID: 554821111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &78770883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+  m_PrefabInstance: {fileID: 554821111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &78770884
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78770882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c99552f0d71eb534faaf068f7564042c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &78770885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78770882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d97917b6ddf7a4bb86083aea71c7f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_animation
+  speedParam: Speed
 --- !u!1 &79551995
 GameObject:
   m_ObjectHideFlags: 0
@@ -25319,6 +25364,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 373536391}
   startDelay: 3
@@ -32342,6 +32389,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5190437239892832003, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355915943570368427, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7869543608362826461, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -32359,6 +32414,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4311652260893728935, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 223536673}
+    - targetCorrespondingSourceObject: {fileID: 4311652260893728935, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 78770883}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3503167532966410781, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       insertIndex: -1
@@ -36108,6 +36166,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 548281022}
   startDelay: 3
@@ -36465,6 +36525,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554504315}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &554821111
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1519007552}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 131.30292
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 131.30292
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 131.30292
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.008674718
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17403004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08634656
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7224768
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6913953
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 87.481
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      propertyPath: m_Name
+      value: Idle_SkM
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 78770884}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 78770885}
+  m_SourcePrefab: {fileID: 100100000, guid: b0b6194d862090c4197e22e8b7212fe9, type: 3}
 --- !u!1 &557767885 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6044503832225785899, guid: 0602b4731a568b7469ea9cf5a553ed05, type: 3}
@@ -37902,6 +38037,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 576371064}
   startDelay: 1
@@ -38099,6 +38236,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 579498897}
   startDelay: 3
@@ -55179,6 +55318,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 834589265}
   startDelay: 3
@@ -69961,6 +70102,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 1103823529}
   startDelay: 3
@@ -82846,6 +82989,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 1306691915}
   startDelay: 3
@@ -96929,6 +97074,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 1512525219}
   startDelay: 3
@@ -107903,6 +108050,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 1676163965}
   startDelay: 3
@@ -133520,6 +133669,8 @@ MonoBehaviour:
   timeBetweenHighlights: 0.3
   sequenceLength: 5
   maxFails: 2
+  explosionSpawner: {fileID: 0}
+  explosionPoint: {fileID: 0}
   isActive: 0
   enterBomb: {fileID: 2076481372}
   startDelay: 3
