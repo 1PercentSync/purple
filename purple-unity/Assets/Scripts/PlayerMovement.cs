@@ -23,11 +23,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.GameIsPaused)
+            return;
+
         if (!dialogue)
         {
             HandleMovement();
         }
-
     }
 
 

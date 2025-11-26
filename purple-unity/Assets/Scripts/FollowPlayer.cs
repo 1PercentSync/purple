@@ -36,6 +36,10 @@ public class FollowPlayer : MonoBehaviour
 
     void Update()
     {
+        // Don't allow camera movement when game is paused
+        if (PauseMenu.GameIsPaused)
+            return;
+
         HandleMouseLook();
     }
 
@@ -49,7 +53,7 @@ public class FollowPlayer : MonoBehaviour
 
         // rotate camera vertically
         pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, minPitch, maxPitch); // clamp the pitch
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch); 
         transform.localEulerAngles = new Vector3(pitch, 0f, 0f);
     }
 }
