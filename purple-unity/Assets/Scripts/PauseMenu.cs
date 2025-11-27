@@ -17,31 +17,26 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-
         if (resumeButton != null)
             resumeButton.onClick.AddListener(Resume);
 
         if (restartButton != null)
             restartButton.onClick.AddListener(RestartGame);
 
-
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
 
         if (pauseCanvas != null)
-        {
             pauseCanvas.sortingOrder = 100;
-        }
 
         if (pauseMenuUI != null)
-        {
             pauseMenuUI.SetActive(false);
-        }
 
         Time.timeScale = 1f;
         GameIsPaused = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -71,8 +66,9 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 1f;
         GameIsPaused = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Pause()
@@ -84,6 +80,7 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 0f;
         GameIsPaused = true;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -94,8 +91,9 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 1f;
         GameIsPaused = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         SceneManager.LoadScene("StartMenu");
     }
