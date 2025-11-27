@@ -73717,13 +73717,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7809980340175737507, guid: 0ba27af416401ad4aacadc9950b054d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1321338814}
   m_SourcePrefab: {fileID: 100100000, guid: 0ba27af416401ad4aacadc9950b054d9, type: 3}
 --- !u!4 &1321338812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7433559594859087897, guid: 0ba27af416401ad4aacadc9950b054d9, type: 3}
   m_PrefabInstance: {fileID: 1321338811}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1321338813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7809980340175737507, guid: 0ba27af416401ad4aacadc9950b054d9, type: 3}
+  m_PrefabInstance: {fileID: 1321338811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1321338814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321338813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f86e0107e04e0144d8dfe106d0d7fed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockInStation
+  workClock: {fileID: 1797750259}
 --- !u!1 &1323069621
 GameObject:
   m_ObjectHideFlags: 0
@@ -83802,7 +83823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTransition
   sceneToLoad: TherapyRoom
-  quotaManager: {fileID: 0}
+  quotaManager: {fileID: 819995245}
 --- !u!65 &1507779978
 BoxCollider:
   m_ObjectHideFlags: 0
