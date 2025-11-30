@@ -6702,6 +6702,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 384315604}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
+      propertyPath: sequenceLength
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: explosionSpawner
       value: 
       objectReference: {fileID: 384315605}
@@ -88487,7 +88491,7 @@ MonoBehaviour:
   snoreClip: {fileID: 8300000, guid: 9eb4b308f6b48344097e009310f78339, type: 3}
   tiredness: 50
   maxTiredness: 100
-  timeToFullSleep: 60
+  timeToFullSleep: 30
   timeAtMaxBeforeReset: 5
   minDozeDelay: 3
   maxDozeDelay: 4
