@@ -6695,7 +6695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: maxFails
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: explosionPoint

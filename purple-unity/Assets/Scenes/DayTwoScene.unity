@@ -6695,7 +6695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: maxFails
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: explosionPoint
@@ -83867,7 +83867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTransition
   sceneToLoad: TherapyRoom
-  quotaManager: {fileID: 0}
+  quotaManager: {fileID: 819995245}
 --- !u!65 &1507779978
 BoxCollider:
   m_ObjectHideFlags: 0
