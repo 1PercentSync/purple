@@ -6703,7 +6703,7 @@ PrefabInstance:
       objectReference: {fileID: 384315604}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: sequenceLength
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4067480003088671704, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: explosionSpawner
@@ -6715,7 +6715,7 @@ PrefabInstance:
       objectReference: {fileID: 1094304044}
     - target: {fileID: 4273649504865255760, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: codeDisplayTime
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4348371309212724164, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: m_Volume
