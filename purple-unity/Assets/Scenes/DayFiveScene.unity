@@ -6710,6 +6710,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 384315605}
     - target: {fileID: 4273649504865255760, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
+      propertyPath: codeLength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4273649504865255760, guid: 6d98d3261b138334285d89fc78a8de76, type: 3}
       propertyPath: screenText
       value: 
       objectReference: {fileID: 1094304044}
