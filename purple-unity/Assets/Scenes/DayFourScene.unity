@@ -48016,9 +48016,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuotaManager
   hudText: {fileID: 1510028553}
-  dailyQuota: 3
+  dailyQuota: 7
   bombsCreated: 0
-  currentDay: 1
+  currentDay: 3
 --- !u!1 &820699038
 GameObject:
   m_ObjectHideFlags: 0
@@ -88470,7 +88470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1578527366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88487,7 +88487,7 @@ MonoBehaviour:
   snoreClip: {fileID: 8300000, guid: 9eb4b308f6b48344097e009310f78339, type: 3}
   tiredness: 50
   maxTiredness: 100
-  timeToFullSleep: 5000
+  timeToFullSleep: 150
   timeAtMaxBeforeReset: 15
   minDozeDelay: 3
   maxDozeDelay: 4

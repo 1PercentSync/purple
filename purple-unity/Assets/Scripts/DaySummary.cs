@@ -18,7 +18,7 @@ public class DaySummary : MonoBehaviour
     public string summaryContent = "";
 
     [Header("Settings")]
-    public string nextSceneName = "SampleScene";
+    public string nextSceneName = "DayThreeScene";
 
     private void Start()
     {

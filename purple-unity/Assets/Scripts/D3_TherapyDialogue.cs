@@ -126,6 +126,6 @@ public class D3_TherapyDialogue : MonoBehaviour
         dialoguePanel.SetActive(false);
         Debug.Log("Day 3 therapy session finished.");
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("DaySummary");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("DaySummaryDay3");
     }
 }

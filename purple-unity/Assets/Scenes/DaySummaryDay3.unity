@@ -543,9 +543,9 @@ MonoBehaviour:
   titleText: {fileID: 131237398}
   summaryText: {fileID: 1370998247}
   continueButton: {fileID: 2050553545}
-  titleContent: END OF DAY 2
+  titleContent: END OF DAY 3
   summaryContent: This needs to be filled out
-  nextSceneName: DayFourScene
+  nextSceneName: DayFiveScene
 --- !u!1 &930833338
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: d03c9ae34df786948adeff21e6392e5e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -20,6 +20,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 896a7ca4130aff040ae993b4f8cdf9b7
+  - enabled: 1
+    path: Assets/Scenes/DayThreeScene.unity
+    guid: e09c81a63f860094096fbdbb301989c5
+  - enabled: 1
+    path: Assets/Scenes/DayFourScene.unity
+    guid: 040ed485c68301e42933e1289033b61f
+  - enabled: 1
+    path: Assets/Scenes/DayFiveScene.unity
+    guid: 1553506718d34e5428a12f0edaeb56d2
+  - enabled: 1
+    path: Assets/Scenes/TherapyRoomDayTwo.unity
+    guid: 892fb4b9f781c614f836ff46ac1e7f56
+  - enabled: 1
+    path: Assets/Scenes/TherapyRoom Day Three.unity
+    guid: d670fa4026c0bf647959b0bc85343fd2
+  - enabled: 1
+    path: Assets/Scenes/DaySummaryDay2.unity
+    guid: 8779455f31f7c1642be6fd7383b6b658
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -133,6 +133,6 @@ public class D2_TherapyDialogue : MonoBehaviour
         dialoguePanel.SetActive(false);
         Debug.Log("Therapy session complete. Loading Day Summary...");
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("DaySummary");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("DaySummaryDay2");
     }
 }
