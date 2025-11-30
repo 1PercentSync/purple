@@ -83866,7 +83866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de54997616d99514cae3caf4ba7ef1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTransition
-  sceneToLoad: TherapyRoom
+  sceneToLoad: TherapyRoomDayThree
   quotaManager: {fileID: 819995245}
 --- !u!65 &1507779978
 BoxCollider:

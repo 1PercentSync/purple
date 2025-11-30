@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TherapyRoomDayTwo.unity
     guid: 892fb4b9f781c614f836ff46ac1e7f56
   - enabled: 1
-    path: Assets/Scenes/TherapyRoom Day Three.unity
+    path: Assets/Scenes/TherapyRoomDayThree.unity
     guid: d670fa4026c0bf647959b0bc85343fd2
   - enabled: 1
     path: Assets/Scenes/DaySummaryDay2.unity
