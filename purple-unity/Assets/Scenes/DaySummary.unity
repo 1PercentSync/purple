@@ -548,7 +548,7 @@ MonoBehaviour:
     and ran into traffic for an hour. By the time you got home it was too late to
     do anything, so you heated up a frozen dinner and fell asleep on the couch watching
     tv.
-  nextSceneName: SampleScene
+  nextSceneName: DayThreeScene
 --- !u!1 &930833338
 GameObject:
   m_ObjectHideFlags: 0
